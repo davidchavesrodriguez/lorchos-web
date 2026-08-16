@@ -1,0 +1,109 @@
+---
+import type { MatchSummary } from "../data/nextMatch";
+
+interface Props {
+  match: MatchSummary;
+}
+
+const { match } = Astro.props;
+---
+
+<article class="match-preview">
+  <h3 class="match-preview__fixture">
+    <span>{match.team}</span>
+    <span class="match-preview__versus">contra</span>
+    <span>{match.opponent}</span>
+  </h3>
+
+  <dl class="match-preview__metadata">
+    <div>
+      <dt>Competición</dt>
+      <dd>{match.competition}</dd>
+    </div>
+    <div>
+      <dt>Data</dt>
+      <dd>{match.date}</dd>
+    </div>
+    <div>
+      <dt>Lugar</dt>
+      <dd>{match.venue}</dd>
+    </div>
+  </dl>
+</article>
+
+<style>
+  .match-preview {
+    padding-block-start: var(--space-6);
+    border-block-start: 0.125rem solid var(--color-brand-cyan);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .match-preview__fixture {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-end: clamp(var(--space-8), 6vw, var(--space-12));
+    font-family: var(--font-functional);
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: pretty;
+  }
+
+  .match-preview__versus {
+    justify-self: start;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .match-preview__metadata {
+    display: grid;
+    gap: var(--space-6);
+    margin: 0;
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .match-preview__metadata div {
+    min-width: 0;
+  }
+
+  .match-preview__metadata dt {
+    margin-block-end: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .match-preview__metadata dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 42rem) {
+    .match-preview__fixture {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+
+    .match-preview__versus {
+      justify-self: center;
+    }
+
+    .match-preview__fixture > :last-child {
+      text-align: end;
+    }
+
+    .match-preview__metadata {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-8);
+    }
+  }
+</style>
