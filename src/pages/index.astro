@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import MatchPreview from "../components/MatchPreview.astro";
+import { nextMatch } from "../data/nextMatch";
 import aboutPhoto from "../assets/photos/TorneoFutbolGaelico-76.jpg";
 import heroPhoto from "../assets/photos/TorneoFutbolGaelico-15.jpg";
 // TODO: Replace with the final GB Lorchos team-specific photograph.
@@ -122,6 +124,19 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
         </div>
 
         <a class="teams__link" href="/equipos/">Coñece os equipos</a>
+      </div>
+    </section>
+
+    <section class="next-match" aria-labelledby="next-match-title">
+      <div class="next-match__inner container">
+        <header class="next-match__header">
+          <p class="next-match__eyebrow">PRÓXIMO PARTIDO</p>
+          <h2 id="next-match-title">O seguinte encontro</h2>
+        </header>
+
+        <MatchPreview match={nextMatch} />
+
+        <a class="next-match__link" href="/calendario/">Ver calendario completo</a>
       </div>
     </section>
   </main>
@@ -364,6 +379,44 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
 
   .teams__link:hover {
     color: var(--color-brand-white);
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .next-match {
+    background: var(--color-brand-white);
+  }
+
+  .next-match__inner {
+    padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+  }
+
+  .next-match__header {
+    margin-block-end: var(--space-8);
+  }
+
+  .next-match__eyebrow {
+    margin-block-end: var(--space-4);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 0.25rem solid var(--color-brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .next-match h2 {
+    margin-block-end: 0;
+  }
+
+  .next-match__link {
+    display: inline-block;
+    margin-block-start: var(--space-12);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .next-match__link:hover {
     text-decoration-color: var(--color-brand-cyan);
   }
 
