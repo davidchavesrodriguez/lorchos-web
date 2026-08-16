@@ -203,6 +203,24 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
         </figure>
       </div>
     </section>
+
+    <section class="sport-intro" aria-labelledby="sport-intro-title">
+      <div class="sport-intro__inner container">
+        <header class="sport-intro__header">
+          <p class="sport-intro__eyebrow">FÚTBOL GAÉLICO</p>
+          <h2 id="sport-intro-title">Un deporte diferente. Fácil de empezar a entender.</h2>
+        </header>
+
+        <div class="sport-intro__content">
+          <p class="sport-intro__body">
+            O fútbol gaélico combina xogo co pé e coa man nun deporte rápido, colectivo e dinámico.
+            O obxectivo é avanzar co balón e puntuar entre os paus ou na portería rival.
+          </p>
+          <p class="sport-intro__support">Non necesitas coñecer as regras para vir probar.</p>
+          <a class="sport-intro__link" href="/futbol-gaelico/">Descubre como se xoga</a>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
 
@@ -602,6 +620,51 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     object-position: center;
   }
 
+  .sport-intro {
+    background: var(--color-brand-white);
+  }
+
+  .sport-intro__inner {
+    display: grid;
+    gap: var(--space-8);
+    padding-block: clamp(var(--space-12), 7vw, var(--space-16));
+    border-block-start: 0.125rem solid var(--color-brand-cyan);
+  }
+
+  .sport-intro__eyebrow {
+    margin-block-end: var(--space-4);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .sport-intro h2 {
+    max-width: 14ch;
+    margin-block-end: 0;
+  }
+
+  .sport-intro__body {
+    margin-block-end: var(--space-6);
+    line-height: 1.75;
+  }
+
+  .sport-intro__support {
+    margin-block-end: var(--space-6);
+    font-weight: 600;
+  }
+
+  .sport-intro__link {
+    display: inline-block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .sport-intro__link:hover {
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
   @media (min-width: 28rem) {
     .hero__actions {
       flex-direction: row;
@@ -686,6 +749,18 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
 
     .teams__link {
       margin-block-start: var(--space-16);
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .sport-intro__inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      align-items: start;
+      gap: clamp(var(--space-8), 7vw, var(--space-16));
+    }
+
+    .sport-intro__content {
+      padding-block-start: calc(var(--space-6) + var(--space-1));
     }
   }
 </style>
