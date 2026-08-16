@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MatchPreview from "../components/MatchPreview.astro";
 import { nextMatch } from "../data/nextMatch";
+import { siteContact, type SocialLink } from "../data/siteContact";
 import { sponsors } from "../data/sponsors";
 import { trainingInfo } from "../data/training";
 import aboutPhoto from "../assets/photos/TorneoFutbolGaelico-76.jpg";
@@ -13,6 +14,10 @@ import trainingPlaceholderPhoto from "../assets/photos/abride os ollos.jpg";
 import lorchosPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-10-16 a las 21.05.59_d3814387.jpg";
 // TODO: Replace with the final GB Lorchas team-specific photograph.
 import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11-06 a las 22.11.36_363464e3.jpg";
+
+const configuredSocialLinks = siteContact.socialLinks.filter(
+  (social): social is SocialLink & { url: string } => social.url !== null,
+);
 ---
 
 <BaseLayout
@@ -259,6 +264,50 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
               ))
             }
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" aria-labelledby="contact-title">
+      <div class="contact__inner container">
+        <header class="contact__header">
+          <p class="contact__eyebrow">FALAMOS?</p>
+          <h2 id="contact-title">O club tamén continúa fóra do campo.</h2>
+        </header>
+
+        <div class="contact__content">
+          <p class="contact__body">
+            Se tes unha proposta, queres colaborar ou simplemente saber máis sobre GB Lorchos e GB
+            Lorchas, estamos ao outro lado.
+          </p>
+
+          <address class="contact__details">
+            <div>
+              <p class="contact__label">Correo</p>
+              <a class="contact__email" href={`mailto:${siteContact.email}`}>
+                {siteContact.email}
+              </a>
+            </div>
+
+            <div>
+              <p class="contact__label">Redes</p>
+              {
+                configuredSocialLinks.length > 0 ? (
+                  <ul class="contact__socials">
+                    {configuredSocialLinks.map((social) => (
+                      <li>
+                        <a href={social.url} target="_blank" rel="noopener noreferrer">
+                          {social.platform}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="contact__social-fallback">Ligazóns pendentes de configurar</p>
+                )
+              }
+            </div>
+          </address>
         </div>
       </div>
     </section>
@@ -784,6 +833,92 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     object-fit: contain;
   }
 
+  .contact {
+    background: var(--color-background-subtle);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .contact__inner {
+    display: grid;
+    gap: var(--space-8);
+    padding-block: clamp(var(--space-12), 7vw, var(--space-16));
+    border-block-start: 0.125rem solid var(--color-brand-cyan);
+  }
+
+  .contact__eyebrow {
+    margin-block-end: var(--space-4);
+    color: var(--color-brand-dark-blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .contact h2 {
+    max-width: 14ch;
+    margin-block-end: 0;
+    color: var(--color-brand-dark-blue);
+  }
+
+  .contact__body {
+    margin-block-end: var(--space-8);
+    color: var(--color-brand-dark-blue);
+    line-height: 1.75;
+  }
+
+  .contact__details {
+    display: grid;
+    gap: var(--space-8);
+    color: var(--color-brand-dark-blue);
+    font-family: var(--font-functional);
+    font-style: normal;
+  }
+
+  .contact__label {
+    margin-block-end: var(--space-2);
+    color: var(--color-text-muted);
+    font-family: var(--font-functional);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact__email,
+  .contact__socials a {
+    color: var(--color-brand-dark-blue);
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 600;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .contact__email {
+    overflow-wrap: anywhere;
+  }
+
+  .contact__email:hover,
+  .contact__socials a:hover {
+    color: var(--color-brand-dark-blue);
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .contact__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact__social-fallback {
+    margin-block-end: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    font-style: normal;
+  }
+
   @media (min-width: 28rem) {
     .hero__actions {
       flex-direction: row;
@@ -873,6 +1008,10 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     .sponsors__logos {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .contact__details {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (min-width: 56rem) {
@@ -890,6 +1029,16 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
       grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
       align-items: end;
       gap: clamp(var(--space-8), 7vw, var(--space-16));
+    }
+
+    .contact__inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+      gap: clamp(var(--space-8), 7vw, var(--space-16));
+    }
+
+    .contact__content {
+      padding-block-start: calc(var(--space-6) + var(--space-1));
     }
   }
 </style>
