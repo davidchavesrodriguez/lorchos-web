@@ -35,8 +35,8 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
             competir e formar parte dunha comunidade que segue medrando.
           </p>
           <div class="hero__actions">
-            <a class="hero__action hero__action--primary" href="/o-club/">Coñece o club</a>
-            <a class="hero__action hero__action--secondary" href="/proba/">Ven probar</a>
+            <a class="home-action home-action--primary" href="/o-club/">Coñece o club</a>
+            <a class="home-action home-action--secondary" href="/proba/">Ven probar</a>
           </div>
         </div>
 
@@ -193,7 +193,7 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
             </a>
           </div>
 
-          <a class="training__cta" href="/proba/">Ven probar</a>
+          <a class="home-action home-action--primary training__cta" href="/proba/">Ven probar</a>
         </div>
 
         <figure class="training__media">
@@ -315,6 +315,100 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
 </BaseLayout>
 
 <style>
+  .hero__eyebrow,
+  .about__eyebrow,
+  .teams__eyebrow,
+  .next-match__eyebrow,
+  .training__eyebrow,
+  .sport-intro__eyebrow,
+  .sponsors__eyebrow,
+  .contact__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-block-end: var(--space-4);
+    color: inherit;
+    font-family: var(--font-functional);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .hero__eyebrow::before,
+  .about__eyebrow::before,
+  .teams__eyebrow::before,
+  .next-match__eyebrow::before,
+  .training__eyebrow::before,
+  .sport-intro__eyebrow::before,
+  .sponsors__eyebrow::before,
+  .contact__eyebrow::before {
+    flex: 0 0 var(--space-8);
+    height: 0.125rem;
+    background: var(--color-brand-cyan);
+    content: "";
+  }
+
+  .home-action {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    border: 0.125rem solid transparent;
+    font-family: var(--font-functional);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .home-action--primary {
+    border-color: var(--color-brand-orange);
+    background: var(--color-brand-orange);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .home-action--primary:hover {
+    background: var(--color-brand-white);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .home-action--secondary {
+    border-color: var(--color-brand-white);
+    color: var(--color-brand-white);
+  }
+
+  .home-action--secondary:hover {
+    border-color: var(--color-brand-cyan);
+    color: var(--color-brand-white);
+  }
+
+  .about__link,
+  .teams__link,
+  .next-match__link,
+  .training__location,
+  .sport-intro__link,
+  .sponsors__link {
+    display: inline-block;
+    font-family: var(--font-functional);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .about__link:hover,
+  .teams__link:hover,
+  .next-match__link:hover,
+  .training__location:hover,
+  .sport-intro__link:hover,
+  .sponsors__link:hover {
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
   .hero {
     overflow: hidden;
     background: var(--color-brand-dark-blue);
@@ -327,17 +421,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
 
   .hero__content {
     padding-block: clamp(var(--space-12), 12vw, var(--space-16));
-  }
-
-  .hero__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
-    text-transform: uppercase;
   }
 
   .hero h1 {
@@ -358,40 +441,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-3);
-  }
-
-  .hero__action {
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-3) var(--space-6);
-    border: 0.125rem solid transparent;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    line-height: 1.25;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .hero__action--primary {
-    background: var(--color-brand-orange);
-    color: var(--color-brand-dark-blue);
-  }
-
-  .hero__action--secondary {
-    border-color: var(--color-brand-white);
-    color: var(--color-brand-white);
-  }
-
-  .hero__action--primary:hover {
-    background: var(--color-brand-white);
-    color: var(--color-brand-dark-blue);
-  }
-
-  .hero__action--secondary:hover {
-    border-color: var(--color-brand-cyan);
-    color: var(--color-brand-white);
   }
 
   .hero__media {
@@ -422,17 +471,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     max-width: 38rem;
   }
 
-  .about__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
-    text-transform: uppercase;
-  }
-
   .about h2 {
     max-width: 14ch;
     margin-block-end: var(--space-6);
@@ -441,17 +479,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
   .about__body {
     margin-block-end: var(--space-6);
     line-height: 1.75;
-  }
-
-  .about__link {
-    display: inline-block;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration-color: var(--color-brand-orange);
-  }
-
-  .about__link:hover {
-    text-decoration-color: var(--color-brand-cyan);
   }
 
   .about__media {
@@ -473,23 +500,13 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
   }
 
   .teams__inner {
-    padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+    padding-block: clamp(var(--space-12), 8vw, var(--space-24));
   }
 
   .teams__header {
     display: grid;
     gap: var(--space-6);
-    margin-block-end: clamp(var(--space-12), 7vw, var(--space-16));
-  }
-
-  .teams__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
+    margin-block-end: clamp(var(--space-8), 5vw, var(--space-12));
   }
 
   .teams h2 {
@@ -506,7 +523,7 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
 
   .teams__list {
     display: grid;
-    gap: var(--space-16);
+    gap: var(--space-12);
   }
 
   .team__media {
@@ -541,17 +558,12 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
   }
 
   .teams__link {
-    display: inline-block;
     margin-block-start: var(--space-12);
     color: var(--color-brand-white);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration-color: var(--color-brand-orange);
   }
 
   .teams__link:hover {
     color: var(--color-brand-white);
-    text-decoration-color: var(--color-brand-cyan);
   }
 
   .next-match {
@@ -566,30 +578,12 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     margin-block-end: var(--space-8);
   }
 
-  .next-match__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
-  }
-
   .next-match h2 {
     margin-block-end: 0;
   }
 
   .next-match__link {
-    display: inline-block;
     margin-block-start: var(--space-12);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration-color: var(--color-brand-orange);
-  }
-
-  .next-match__link:hover {
-    text-decoration-color: var(--color-brand-cyan);
   }
 
   .training {
@@ -604,16 +598,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
 
   .training__content {
     max-width: 38rem;
-  }
-
-  .training__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
   }
 
   .training h2 {
@@ -665,36 +649,10 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
 
   .training__location {
     justify-self: start;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    line-height: 1.5;
-    text-decoration-color: var(--color-brand-orange);
-  }
-
-  .training__location:hover {
-    text-decoration-color: var(--color-brand-cyan);
   }
 
   .training__cta {
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: center;
     margin-block-start: var(--space-8);
-    padding: var(--space-3) var(--space-6);
-    border: 0.125rem solid var(--color-brand-orange);
-    background: var(--color-brand-orange);
-    color: var(--color-brand-dark-blue);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    line-height: 1.25;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .training__cta:hover {
-    background: var(--color-brand-dark-blue);
-    color: var(--color-brand-white);
   }
 
   .training__media {
@@ -717,16 +675,7 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
   .sport-intro__inner {
     display: grid;
     gap: var(--space-8);
-    padding-block: clamp(var(--space-12), 7vw, var(--space-16));
-    border-block-start: 0.125rem solid var(--color-brand-cyan);
-  }
-
-  .sport-intro__eyebrow {
-    margin-block-end: var(--space-4);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
+    padding-block: clamp(var(--space-16), 7vw, var(--space-24));
   }
 
   .sport-intro h2 {
@@ -744,17 +693,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     font-weight: 600;
   }
 
-  .sport-intro__link {
-    display: inline-block;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration-color: var(--color-brand-orange);
-  }
-
-  .sport-intro__link:hover {
-    text-decoration-color: var(--color-brand-cyan);
-  }
-
   .sponsors__editorial {
     background: var(--color-brand-dark-blue);
     color: var(--color-brand-white);
@@ -764,16 +702,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     display: grid;
     gap: var(--space-8);
     padding-block: clamp(var(--space-16), 10vw, var(--space-24));
-  }
-
-  .sponsors__eyebrow {
-    margin-block-end: var(--space-4);
-    padding-inline-start: var(--space-3);
-    border-inline-start: 0.25rem solid var(--color-brand-cyan);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
   }
 
   .sponsors h2 {
@@ -789,16 +717,11 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
   }
 
   .sponsors__link {
-    display: inline-block;
     color: var(--color-brand-white);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration-color: var(--color-brand-orange);
   }
 
   .sponsors__link:hover {
     color: var(--color-brand-white);
-    text-decoration-color: var(--color-brand-cyan);
   }
 
   .sponsors__logo-area {
@@ -842,16 +765,6 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     display: grid;
     gap: var(--space-8);
     padding-block: clamp(var(--space-12), 7vw, var(--space-16));
-    border-block-start: 0.125rem solid var(--color-brand-cyan);
-  }
-
-  .contact__eyebrow {
-    margin-block-end: var(--space-4);
-    color: var(--color-brand-dark-blue);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
   }
 
   .contact h2 {
@@ -1004,6 +917,10 @@ const configuredSocialLinks = siteContact.socialLinks.filter(
     .teams__list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: clamp(var(--space-6), 4vw, var(--space-8));
+    }
+
+    .team__media {
+      aspect-ratio: 3 / 2;
     }
 
     .teams__link {
