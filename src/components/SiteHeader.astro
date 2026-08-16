@@ -1,0 +1,274 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/brand/lorchos-logo-horizontal.png";
+
+const navigationItems = [
+  { label: "Inicio", href: "/" },
+  { label: "O club", href: "/o-club/" },
+  { label: "Equipos", href: "/equipos/" },
+  { label: "Fútbol gaélico", href: "/futbol-gaelico/" },
+  { label: "Calendario", href: "/calendario/" },
+  { label: "Patrocinios", href: "/patrocinios/" },
+  { label: "Contacto", href: "/contacto/" },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+const getCurrentState = (href: string) => {
+  const itemPath = href.replace(/\/+$/, "") || "/";
+
+  if (currentPath === itemPath) return "page";
+  if (itemPath !== "/" && currentPath.startsWith(`${itemPath}/`)) return "location";
+
+  return undefined;
+};
+---
+
+<header class="site-header" data-site-header>
+  <div class="site-header__inner container">
+    <a class="site-header__brand" href="/" aria-label="GB Lorchos — Inicio">
+      <Image src={logo} alt="GB Lorchos" width={168} />
+    </a>
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      aria-label="Abrir menú"
+      data-menu-toggle
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+      <span>Menú</span>
+    </button>
+
+    <nav class="site-header__nav" id="site-navigation" aria-label="Navegación principal" data-menu>
+      <ul class="site-header__links">
+        {
+          navigationItems.map(({ label, href }) => {
+            const currentState = getCurrentState(href);
+
+            return (
+              <li>
+                <a
+                  class:list={["site-header__link", { "is-active": currentState }]}
+                  href={href}
+                  aria-current={currentState}
+                >
+                  {label}
+                </a>
+              </li>
+            );
+          })
+        }
+        <li class="site-header__cta-item">
+          <a class="site-header__cta" href="/proba/" aria-current={getCurrentState("/proba/")}>
+            Ven probar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const toggle = header?.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = header?.querySelector<HTMLElement>("[data-menu]");
+
+  const setMenuOpen = (isOpen: boolean) => {
+    if (!toggle || !menu) return;
+
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Pechar menú" : "Abrir menú");
+    menu.classList.toggle("is-open", isOpen);
+  };
+
+  toggle?.addEventListener("click", () => {
+    setMenuOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  menu?.addEventListener("click", (event) => {
+    if ((event.target as Element).closest("a")) setMenuOpen(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") {
+      setMenuOpen(false);
+      toggle.focus();
+    }
+  });
+</script>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 10;
+    background: var(--color-brand-white);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    min-height: 5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .site-header__brand {
+    flex: 0 0 auto;
+  }
+
+  .site-header__brand,
+  .site-header__brand img {
+    display: block;
+  }
+
+  .site-header__brand img {
+    width: clamp(8.5rem, 22vw, 10.5rem);
+  }
+
+  .site-header__toggle {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    background: transparent;
+    color: var(--color-brand-dark-blue);
+    font-family: var(--font-functional);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .site-header__toggle svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: square;
+    stroke-width: 2;
+  }
+
+  .site-header__nav {
+    display: none;
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    padding: var(--space-3) var(--page-gutter) var(--space-6);
+    background: var(--color-brand-white);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .site-header__nav.is-open {
+    display: block;
+  }
+
+  .site-header__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-header__link,
+  .site-header__cta {
+    display: block;
+    font-family: var(--font-functional);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .site-header__link {
+    position: relative;
+    padding: var(--space-4) var(--space-3);
+    border-inline-start: 0.25rem solid transparent;
+  }
+
+  .site-header__link:hover {
+    color: var(--color-brand-dark-blue);
+    background: var(--color-background-subtle);
+  }
+
+  .site-header__link.is-active {
+    border-inline-start-color: var(--color-brand-cyan);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .site-header__cta-item {
+    margin-block-start: var(--space-3);
+  }
+
+  .site-header__cta {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-brand-orange);
+    color: var(--color-brand-dark-blue);
+    text-align: center;
+  }
+
+  .site-header__cta:hover {
+    color: var(--color-brand-dark-blue);
+  }
+
+  .site-header__cta[aria-current] {
+    outline: 0.1875rem solid var(--color-brand-cyan);
+    outline-offset: 0.125rem;
+  }
+
+  @media (min-width: 68rem) {
+    .site-header__inner {
+      min-height: 6rem;
+      gap: var(--space-6);
+    }
+
+    .site-header__toggle {
+      display: none;
+    }
+
+    .site-header__nav {
+      display: block;
+      position: static;
+      padding: 0;
+      border: 0;
+    }
+
+    .site-header__links {
+      flex-direction: row;
+      align-items: center;
+      gap: clamp(var(--space-2), 1.3vw, var(--space-4));
+    }
+
+    .site-header__link {
+      padding: var(--space-3) 0;
+      border-inline-start: 0;
+      border-block-end: 0.1875rem solid transparent;
+      white-space: nowrap;
+    }
+
+    .site-header__link:hover {
+      background: transparent;
+    }
+
+    .site-header__link.is-active {
+      border-block-end-color: var(--color-brand-cyan);
+    }
+
+    .site-header__cta-item {
+      margin-block-start: 0;
+      margin-inline-start: var(--space-2);
+    }
+
+    .site-header__cta {
+      padding: var(--space-3) var(--space-4);
+      white-space: nowrap;
+    }
+  }
+</style>
