@@ -1,0 +1,248 @@
+---
+import { Image } from "astro:assets";
+import crest from "../assets/brand/lorchos-crest-white.png";
+import { siteContact, type SocialLink } from "../data/siteContact";
+
+const navigationItems = [
+  { label: "O club", href: "/o-club/" },
+  { label: "Equipos", href: "/equipos/" },
+  { label: "Fútbol gaélico", href: "/futbol-gaelico/" },
+  { label: "Calendario", href: "/calendario/" },
+  { label: "Patrocinios", href: "/patrocinios/" },
+  { label: "Ven probar", href: "/proba/" },
+];
+
+const legalItems = [
+  { label: "Aviso legal", href: "/legal/aviso-legal/" },
+  { label: "Privacidade", href: "/legal/privacidade/" },
+];
+
+const configuredSocialLinks = siteContact.socialLinks.filter(
+  (social): social is SocialLink & { url: string } => social.url !== null,
+);
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner container">
+    <div class="site-footer__main">
+      <div class="site-footer__identity">
+        <a class="site-footer__brand" href="/" aria-label="GB Lorchos — Inicio">
+          <Image src={crest} alt="" width={64} />
+          <span>GB Lorchos</span>
+        </a>
+        <p>Fútbol gaélico feito en Barbanza.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Navegación do pé de páxina">
+        <ul>
+          {
+            navigationItems.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="site-footer__contact">
+        <p class="site-footer__label">Contacto</p>
+        <a class="site-footer__email" href={`mailto:${siteContact.email}`}>
+          {siteContact.email}
+        </a>
+
+        {
+          configuredSocialLinks.length > 0 && (
+            <div class="site-footer__socials">
+              <p class="site-footer__label">Redes</p>
+              <ul>
+                {configuredSocialLinks.map((social) => (
+                  <li>
+                    <a href={social.url} target="_blank" rel="noopener noreferrer">
+                      {social.platform}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="site-footer__legal">
+      <p>© 2026 GB Lorchos</p>
+      <nav aria-label="Información legal">
+        <ul>
+          {
+            legalItems.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-brand-dark-blue);
+    color: var(--color-brand-white);
+  }
+
+  .site-footer__inner {
+    position: relative;
+    padding-block: var(--space-12) var(--space-6);
+    border-block-start: 0.125rem solid var(--color-brand-cyan);
+  }
+
+  .site-footer__inner::before {
+    position: absolute;
+    inset-block-start: -0.125rem;
+    inset-inline-start: 0;
+    width: var(--space-16);
+    height: 0.125rem;
+    background: var(--color-brand-orange);
+    content: "";
+  }
+
+  .site-footer__main {
+    display: grid;
+    gap: var(--space-12);
+    padding-block-end: var(--space-12);
+  }
+
+  .site-footer__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-brand-white);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .site-footer__brand:hover {
+    color: var(--color-brand-white);
+  }
+
+  .site-footer__brand img {
+    width: clamp(3.5rem, 8vw, 4rem);
+  }
+
+  .site-footer__identity > p {
+    max-width: 18ch;
+    margin-block: var(--space-4) 0;
+    color: var(--color-brand-white);
+    font-family: var(--font-editorial);
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .site-footer ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .site-footer__nav a,
+  .site-footer__socials a {
+    color: var(--color-brand-white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration-color: transparent;
+  }
+
+  .site-footer__nav a:hover,
+  .site-footer__socials a:hover {
+    color: var(--color-brand-white);
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .site-footer__label {
+    margin-block-end: var(--space-2);
+    color: var(--color-brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .site-footer__email {
+    color: var(--color-brand-white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .site-footer__email:hover {
+    color: var(--color-brand-white);
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .site-footer__socials {
+    margin-block-start: var(--space-6);
+  }
+
+  .site-footer__socials ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .site-footer__legal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-text-muted);
+  }
+
+  .site-footer__legal p {
+    margin-block-end: 0;
+    color: var(--color-brand-white);
+    font-size: 0.75rem;
+  }
+
+  .site-footer__legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .site-footer__legal a {
+    color: var(--color-brand-white);
+    font-size: 0.75rem;
+  }
+
+  .site-footer__legal a:hover {
+    color: var(--color-brand-white);
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__main {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: clamp(var(--space-8), 6vw, var(--space-16));
+    }
+
+    .site-footer__legal {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>
