@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MatchPreview from "../components/MatchPreview.astro";
 import { nextMatch } from "../data/nextMatch";
+import { sponsors } from "../data/sponsors";
 import { trainingInfo } from "../data/training";
 import aboutPhoto from "../assets/photos/TorneoFutbolGaelico-76.jpg";
 import heroPhoto from "../assets/photos/TorneoFutbolGaelico-15.jpg";
@@ -218,6 +219,46 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
           </p>
           <p class="sport-intro__support">Non necesitas coñecer as regras para vir probar.</p>
           <a class="sport-intro__link" href="/futbol-gaelico/">Descubre como se xoga</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sponsors" aria-labelledby="sponsors-title">
+      <div class="sponsors__editorial">
+        <div class="sponsors__content container">
+          <header>
+            <p class="sponsors__eyebrow">PATROCINIOS</p>
+            <h2 id="sponsors-title">
+              Facemos club tamén co apoio de quen cre no deporte local.
+            </h2>
+          </header>
+
+          <div class="sponsors__intro">
+            <p>
+              A colaboración de empresas, entidades e persoas da contorna axúdanos a seguir facendo
+              medrar GB Lorchos e GB Lorchas dentro e fóra do campo.
+            </p>
+            <a class="sponsors__link" href="/patrocinios/">Coñece como colaborar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sponsors__logo-area">
+        <div class="sponsors__logos-inner container">
+          <ul class="sponsors__logos" aria-label="Patrocinadores">
+            {
+              sponsors.map((sponsor) => (
+                <li>
+                  <Image
+                    class="sponsors__logo"
+                    src={sponsor.logo}
+                    alt={`Logotipo de ${sponsor.name}`}
+                    loading="lazy"
+                  />
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </section>
@@ -665,6 +706,84 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     text-decoration-color: var(--color-brand-cyan);
   }
 
+  .sponsors__editorial {
+    background: var(--color-brand-dark-blue);
+    color: var(--color-brand-white);
+  }
+
+  .sponsors__content {
+    display: grid;
+    gap: var(--space-8);
+    padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+  }
+
+  .sponsors__eyebrow {
+    margin-block-end: var(--space-4);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 0.25rem solid var(--color-brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .sponsors h2 {
+    max-width: 15ch;
+    margin-block-end: 0;
+    color: var(--color-brand-white);
+  }
+
+  .sponsors__intro p {
+    margin-block-end: var(--space-6);
+    color: var(--color-brand-white);
+    line-height: 1.75;
+  }
+
+  .sponsors__link {
+    display: inline-block;
+    color: var(--color-brand-white);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .sponsors__link:hover {
+    color: var(--color-brand-white);
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .sponsors__logo-area {
+    width: 100%;
+    background: var(--color-brand-white);
+  }
+
+  .sponsors__logos-inner {
+    padding-block: clamp(var(--space-12), 7vw, var(--space-16));
+  }
+
+  .sponsors__logos {
+    display: grid;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style: none;
+  }
+
+  .sponsors__logos li {
+    display: flex;
+    min-height: 9rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sponsors__logo {
+    width: auto;
+    height: clamp(4.5rem, 9vw, 6rem);
+    max-width: min(100%, 16rem);
+    object-fit: contain;
+  }
+
   @media (min-width: 28rem) {
     .hero__actions {
       flex-direction: row;
@@ -750,6 +869,10 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     .teams__link {
       margin-block-start: var(--space-16);
     }
+
+    .sponsors__logos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (min-width: 56rem) {
@@ -761,6 +884,12 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
 
     .sport-intro__content {
       padding-block-start: calc(var(--space-6) + var(--space-1));
+    }
+
+    .sponsors__content {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: end;
+      gap: clamp(var(--space-8), 7vw, var(--space-16));
     }
   }
 </style>
