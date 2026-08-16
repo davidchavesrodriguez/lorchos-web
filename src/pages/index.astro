@@ -1,11 +1,169 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import heroPhoto from "../assets/photos/TorneoFutbolGaelico-15.jpg";
 ---
 
-<BaseLayout title="GB Lorchos" description="GB Lorchos">
-  <main class="section">
-    <div class="container">
-      <h1>GB Lorchos</h1>
-    </div>
+<BaseLayout
+  title="GB Lorchos | Fútbol gaélico en Barbanza"
+  description="GB Lorchos e GB Lorchas somos un club de fútbol gaélico aberto a quen queira coñecer, competir e formar parte dunha comunidade que segue medrando."
+>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__inner container">
+        <div class="hero__content">
+          <p class="hero__eyebrow">Fútbol gaélico · Barbanza</p>
+          <h1 id="hero-title">Fútbol gaélico feito en Barbanza.</h1>
+          <p class="hero__intro">
+            GB Lorchos e GB Lorchas somos un club de fútbol gaélico aberto a quen queira coñecer,
+            competir e formar parte dunha comunidade que segue medrando.
+          </p>
+          <div class="hero__actions">
+            <a class="hero__action hero__action--primary" href="/o-club/">Coñece o club</a>
+            <a class="hero__action hero__action--secondary" href="/proba/">Ven probar</a>
+          </div>
+        </div>
+
+        <figure class="hero__media">
+          <Image
+            class="hero__image"
+            src={heroPhoto}
+            alt="Xogador de GB Lorchos golpeando o balón durante un partido de fútbol gaélico"
+            width={1440}
+            widths={[480, 768, 1024, 1440]}
+            sizes="(min-width: 56rem) 56vw, 100vw"
+            loading="eager"
+          />
+        </figure>
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  .hero {
+    overflow: hidden;
+    background: var(--color-brand-dark-blue);
+    color: var(--color-brand-white);
+  }
+
+  .hero__inner {
+    display: grid;
+  }
+
+  .hero__content {
+    padding-block: clamp(var(--space-12), 12vw, var(--space-16));
+  }
+
+  .hero__eyebrow {
+    margin-block-end: var(--space-4);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 0.25rem solid var(--color-brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+    margin-block-end: var(--space-6);
+    font-size: clamp(3rem, 11vw, 5.25rem);
+  }
+
+  .hero__intro {
+    max-width: 38rem;
+    margin-block-end: var(--space-8);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    line-height: 1.7;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .hero__action {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    border: 0.125rem solid transparent;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .hero__action--primary {
+    background: var(--color-brand-orange);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .hero__action--secondary {
+    border-color: var(--color-brand-white);
+    color: var(--color-brand-white);
+  }
+
+  .hero__action--primary:hover {
+    background: var(--color-brand-white);
+    color: var(--color-brand-dark-blue);
+  }
+
+  .hero__action--secondary:hover {
+    border-color: var(--color-brand-cyan);
+    color: var(--color-brand-white);
+  }
+
+  .hero__media {
+    width: calc(100% + (2 * var(--page-gutter)));
+    aspect-ratio: 4 / 3;
+    margin: 0 calc(var(--page-gutter) * -1);
+    overflow: hidden;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 42% center;
+  }
+
+  @media (min-width: 28rem) {
+    .hero__actions {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      min-height: 40rem;
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: var(--space-16);
+      padding-inline-end: clamp(var(--space-8), 5vw, var(--space-16));
+    }
+
+    .hero h1 {
+      font-size: clamp(3.75rem, 6.5vw, 5.25rem);
+    }
+
+    .hero__media {
+      width: auto;
+      min-height: 100%;
+      margin: 0;
+      aspect-ratio: auto;
+    }
+  }
+</style>
