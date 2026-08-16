@@ -3,8 +3,11 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MatchPreview from "../components/MatchPreview.astro";
 import { nextMatch } from "../data/nextMatch";
+import { trainingInfo } from "../data/training";
 import aboutPhoto from "../assets/photos/TorneoFutbolGaelico-76.jpg";
 import heroPhoto from "../assets/photos/TorneoFutbolGaelico-15.jpg";
+// TODO: Replace with the final training-specific photograph when available.
+import trainingPlaceholderPhoto from "../assets/photos/abride os ollos.jpg";
 // TODO: Replace with the final GB Lorchos team-specific photograph.
 import lorchosPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-10-16 a las 21.05.59_d3814387.jpg";
 // TODO: Replace with the final GB Lorchas team-specific photograph.
@@ -137,6 +140,67 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
         <MatchPreview match={nextMatch} />
 
         <a class="next-match__link" href="/calendario/">Ver calendario completo</a>
+      </div>
+    </section>
+
+    <section class="training" aria-labelledby="training-title">
+      <div class="training__inner container">
+        <div class="training__content">
+          <p class="training__eyebrow">ADESTRAMENTOS</p>
+          <h2 id="training-title">Queres probar o fútbol gaélico?</h2>
+          <p class="training__body">
+            Se queres coñecer o deporte e o club, escríbenos e ven a un adestramento. Axudámosche a
+            empezar e explicámosche o necesario para participar.
+          </p>
+
+          <div class="training__practical">
+            <dl class="training__details">
+              <div>
+                <dt>HORARIO</dt>
+                <dd>{trainingInfo.schedule ?? "Por confirmar"}</dd>
+              </div>
+              {
+                trainingInfo.venue && (
+                  <div>
+                    <dt>Lugar</dt>
+                    <dd>{trainingInfo.venue}</dd>
+                  </div>
+                )
+              }
+              {
+                trainingInfo.address && (
+                  <div>
+                    <dt>Enderezo</dt>
+                    <dd>{trainingInfo.address}</dd>
+                  </div>
+                )
+              }
+            </dl>
+
+            <a
+              class="training__location"
+              href={trainingInfo.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir localización
+            </a>
+          </div>
+
+          <a class="training__cta" href="/proba/">Ven probar</a>
+        </div>
+
+        <figure class="training__media">
+          <Image
+            class="training__image"
+            src={trainingPlaceholderPhoto}
+            alt="Fotografía do club"
+            width={1200}
+            widths={[480, 768, 1200]}
+            sizes="(min-width: 75rem) 42rem, (min-width: 60rem) 58vw, calc(100vw - 2rem)"
+            loading="lazy"
+          />
+        </figure>
       </div>
     </section>
   </main>
@@ -420,6 +484,124 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     text-decoration-color: var(--color-brand-cyan);
   }
 
+  .training {
+    background: var(--color-background-subtle);
+  }
+
+  .training__inner {
+    display: grid;
+    gap: var(--space-12);
+    padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+  }
+
+  .training__content {
+    max-width: 38rem;
+  }
+
+  .training__eyebrow {
+    margin-block-end: var(--space-4);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 0.25rem solid var(--color-brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .training h2 {
+    max-width: 13ch;
+    margin-block-end: var(--space-6);
+  }
+
+  .training__body {
+    margin-block-end: var(--space-8);
+    line-height: 1.75;
+  }
+
+  .training__practical {
+    display: grid;
+    gap: var(--space-6);
+    justify-items: start;
+    padding-block: var(--space-6);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .training__details {
+    display: grid;
+    width: 100%;
+    gap: var(--space-4);
+    justify-items: start;
+    margin: 0;
+  }
+
+  .training__details div {
+    display: grid;
+    justify-items: start;
+  }
+
+  .training__details dt {
+    margin-block-end: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .training__details dd {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: start;
+  }
+
+  .training__location {
+    justify-self: start;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration-color: var(--color-brand-orange);
+  }
+
+  .training__location:hover {
+    text-decoration-color: var(--color-brand-cyan);
+  }
+
+  .training__cta {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: var(--space-8);
+    padding: var(--space-3) var(--space-6);
+    border: 0.125rem solid var(--color-brand-orange);
+    background: var(--color-brand-orange);
+    color: var(--color-brand-dark-blue);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .training__cta:hover {
+    background: var(--color-brand-dark-blue);
+    color: var(--color-brand-white);
+  }
+
+  .training__media {
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .training__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
   @media (min-width: 28rem) {
     .hero__actions {
       flex-direction: row;
@@ -468,6 +650,21 @@ import lorchasPlaceholderPhoto from "../assets/photos/Imagen de WhatsApp 2025-11
     .about__media {
       grid-column: 1;
       grid-row: 1;
+    }
+
+    .training__inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: stretch;
+      gap: clamp(var(--space-8), 6vw, var(--space-16));
+    }
+
+    .training__content {
+      align-self: center;
+    }
+
+    .training__media {
+      min-height: 34rem;
+      aspect-ratio: auto;
     }
   }
 
