@@ -1,22 +1,37 @@
-## Development
+# GB Lorchos Web
 
-When starting the dev server, use background mode:
+## Stack
 
-```
-astro dev --background
-```
+- Astro
+- TypeScript
+- CSS
+- Static-first architecture
+- Minimal client-side JavaScript
+- No React or other UI frameworks unless explicitly required
+- No Tailwind
+- No database in the MVP
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+## Engineering
 
-## Documentation
+- Keep the implementation simple and maintainable.
+- Prefer domain-oriented components over premature abstractions.
+- Do not duplicate content or state.
+- Keep editable club data centralized.
+- Do not add dependencies without a clear benefit.
+- Never invent club information.
+- Do not modify unrelated code.
+- Run `npm run build` after meaningful changes.
 
-Full documentation: https://docs.astro.build
+## Design
 
-Consult these guides before working on related tasks:
+- Follow `docs/brand/STYLE_GUIDE.md` for visual work.
+- Prefer real GB Lorchos and GB Lorchas photography.
+- Avoid generic SaaS/AI-generated aesthetics.
+- No decorative gradients, glassmorphism, excessive shadows or gratuitous animations.
+- Avoid excessive rounded cards.
+- Accessibility and responsive behaviour are requirements.
 
-- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
-- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
-- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
-- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
-- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
-- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+## Language
+
+- Public-facing content is in Galician.
+- Code, identifiers and technical documentation are in English.
