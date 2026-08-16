@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/brand/lorchos-logo-horizontal.png";
+import crest from "../assets/brand/lorchos-crest.png";
 
 const navigationItems = [
   { label: "Inicio", href: "/" },
@@ -27,7 +27,8 @@ const getCurrentState = (href: string) => {
 <header class="site-header" data-site-header>
   <div class="site-header__inner container">
     <a class="site-header__brand" href="/" aria-label="GB Lorchos — Inicio">
-      <Image src={logo} alt="GB Lorchos" width={168} />
+      <Image src={crest} alt="" width={52} />
+      <span>GB Lorchos</span>
     </a>
 
     <button
@@ -119,16 +120,26 @@ const getCurrentState = (href: string) => {
   }
 
   .site-header__brand {
+    display: inline-flex;
     flex: 0 0 auto;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-brand-dark-blue);
+    font-family: var(--font-functional);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 
-  .site-header__brand,
   .site-header__brand img {
     display: block;
   }
 
   .site-header__brand img {
-    width: clamp(8.5rem, 22vw, 10.5rem);
+    width: clamp(2.75rem, 6vw, 3.25rem);
   }
 
   .site-header__toggle {
